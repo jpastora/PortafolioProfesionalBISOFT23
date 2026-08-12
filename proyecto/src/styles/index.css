@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  Sistema visual — paleta editorial + tipografías como theme tokens
+  de TailwindCSS v4 (@theme). Dark mode invierte tokens semánticos.
+*/
+@theme {
+  --color-white: #ffffff;
+  --color-soft: #f8fafc;
+  --color-carbon: #111111;
+  --color-tech: #6b7280;
+  --color-orange: #ff6b00;
+  --color-line: #e5e7eb;
+  --color-cool: #d1d5db;
+
+  --font-heading: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", monospace;
+}
+
+@layer theme {
+  .dark {
+    --color-white: #14161a;
+    --color-soft: #1c1f24;
+    --color-carbon: #e8eaed;
+    --color-tech: #a1a7b0;
+    --color-line: #2a2e35;
+    --color-cool: #383d45;
+  }
+}
+
+:root {
+  color-scheme: light;
+  --dot-color: #d1d5db;
+}
+
+.dark {
+  color-scheme: dark;
+  --dot-color: #383d45;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-white);
+  color: var(--color-carbon);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+:target {
+  scroll-margin-top: 90px;
+}
+
+section[id] {
+  scroll-margin-top: 90px;
+}
+
+@media (max-width: 767px) {
+  section[id] {
+    scroll-margin-bottom: 5.5rem;
+  }
+}
+
+::selection {
+  background: var(--color-orange);
+  color: #fff;
+}
+
+.pos-dotgrid {
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.max-w-prose {
+  max-width: 65ch;
+}
+
+.list-chevron {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-chevron > li {
+  position: relative;
+  padding-left: 1rem;
+}
+
+.list-chevron > li::before {
+  content: ">";
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--color-orange);
+  line-height: inherit;
+}
+
+/* Contact form — autofill theming */
+.contact-field-input:-webkit-autofill,
+.contact-field-input:-webkit-autofill:hover,
+.contact-field-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-carbon);
+  caret-color: var(--color-carbon);
+  transition: background-color 9999s ease-out;
+  box-shadow: 0 0 0 1000px #f8fafc inset;
+}
+
+.dark .contact-field-input:-webkit-autofill,
+.dark .contact-field-input:-webkit-autofill:hover,
+.dark .contact-field-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-carbon);
+  box-shadow: 0 0 0 1000px #1c1f24 inset;
+}
